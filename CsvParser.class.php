@@ -42,9 +42,9 @@ class CsvParser
     *
     * If you set $load_first_row to false, $result[0] will be removed. 
     */
-    public function csv2arrayByColumns($file, $delimiter = ';', $load_first_row = true, array $columns)
+    public static function csv2arrayByColumns($file, $delimiter = ';', $load_first_row = true, array $columns)
     {
-        $rows = $this->getCsvDataByFile($file, $delimiter);
+        $rows = self::getCsvDataByFile($file, $delimiter);
         if (empty($columns))
         {
             throw new Exception('Columns needed');
@@ -99,9 +99,9 @@ class CsvParser
     *
     * NOTE: The first row (header) will be removed every time !!
     */
-    public function csv2arrayByHeader($file, $delimiter = ';')
+    public static function csv2arrayByHeader($file, $delimiter = ';')
     {
-        $rows = $this->getCsvDataByFile($file, $delimiter);
+        $rows = self::getCsvDataByFile($file, $delimiter);
 
         $columns = array();
 
@@ -134,7 +134,7 @@ class CsvParser
      * @var $columns array
      * @var $row array
      */
-    static protected function validateColumns(array $columns, array $row)
+    protected static function validateColumns(array $columns, array $row)
     {
         static $validated = false;
         if (false === $validated)
@@ -153,7 +153,7 @@ class CsvParser
     /**
     * @return array
     */
-    protected function getCsvDataByFile($file, $delimiter = ';')
+    protected static function getCsvDataByFile($file, $delimiter = ';')
     {
         if (!file_exists($file))
         {
